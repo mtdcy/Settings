@@ -39,11 +39,11 @@ let mapleader = ";"
 let g:mapleader = ";"
 
 " 快速重载配置文件
-map <leader>s :source ~/.vimrc<cr> 
-map <leader>e :e! ~/.vimrc<cr>
+map <leader>s :source ~/.vim/vimrc<cr> 
+map <leader>e :e! ~/.vim/vimrc<cr>
 
 " 当.vimrc被修改时，重载之
-autocmd! bufwritepost vimrc source ~/.vimrc 
+autocmd! bufwritepost vimrc source ~/.vim/vimrc 
 
 " 自动跳转到上一次打开的位置
 autocmd BufReadPost *
@@ -51,8 +51,18 @@ autocmd BufReadPost *
 			\ exe "normal! g'\"" |
 			\ endif 
 
+" 自动进入文件夹
+autocmd BufEnter * silent! lcd %:p:h
+" set autochdir "
 
+" Centralize backups, swapfiles and undo history
+set backupdir=~/.vim/backups
+set directory=~/.vim/swaps
+if exists("&undodir")
+    set undodir=~/.vim/undo
+endif
 "}}} 
+
 " => Colors and Fonts "{{{ 
 set t_Co=256
 " 设置vim的本色方案
@@ -205,6 +215,7 @@ nmap <F9> :NERDTreeToggle <CR>
 let g:SuperTabDefaultCompletionType = "<c-n>"
 
 " Cscope
+let g:cscope_silent=1
 " s: Find this C symbol
 nnoremap  <leader>fs :call cscope#find('s', expand('<cword>'))<CR>
 " g: Find this definition
