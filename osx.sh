@@ -650,6 +650,14 @@ defaults write com.apple.ActivityMonitor NetworkGraphType -int 1
 #defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "continuousSpellCheckingEnabled" -bool false
 
 ###############################################################################
+# Terminal & iTerm 2                                                          #
+###############################################################################
+
+# Install pretty iTerm colors
+#open "solarized_custom.itermcolors"
+
+
+###############################################################################
 # Kill affected applications                                                  #
 ###############################################################################
 

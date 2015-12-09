@@ -1,0 +1,8 @@
+#!/bin/bash 
+
+if [ "`uname`" == "Darwin" ]; then
+    sudo mount -o nosuid -t smbfs //chenfang:12345678@192.168.2.88/chenfang /work/remote
+else
+    sudo mount -t cifs //192.168.2.88/chenfang /work/remote -o username=chenfang,password=12345678,gid=peter,uid=peter
+fi
+

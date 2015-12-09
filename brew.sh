@@ -15,6 +15,7 @@ which brew > /dev/null
 if [ $? -ne 0 ]; then 
 info "Install brew..."
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+brew tap Homebrew/dupes
 else
 info "Update brew..."
 # Make sure we’re using the latest Homebrew.
@@ -48,6 +49,13 @@ brew install git
 brew install lua
 brew install p7zip
 brew install tree
+brew install grep --with-default-names 
+brew install make   # Android need gmake
+brew install gnupg
+
+# Develop libraries 
+brew install sdl
+brew install zlib
 
 # Remove outdated versions from the cellar.
 brew cleanup

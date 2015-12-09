@@ -92,7 +92,7 @@ ulimit -S -n 1024
 export NDK=/work/android-ndk-r10e
 export SDK=/work/android-sdk-macosx
 
-export PATH=/work/bin:$NDK:$SDK/platform-tools:$SDK/tools:$PATH
+export PATH=$HOME/bin:$NDK:$SDK/platform-tools:$SDK/tools:$PATH
 
 #export JAVA_HOME=/work/jdk1.6.0_45
 #export PATH=$JAVA_HOME/bin:$PATH 

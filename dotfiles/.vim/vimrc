@@ -61,6 +61,9 @@ set directory=~/.vim/swaps
 if exists("&undodir")
     set undodir=~/.vim/undo
 endif
+
+" 自动保存 
+autocmd BufLeave,FocusLost * silent! wa
 "}}} 
 
 " => Colors and Fonts "{{{ 
@@ -182,7 +185,7 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'https://github.com/scrooloose/nerdtree.git'
 Plugin 'bufexplorer.zip'
 Plugin 'taglist.vim'
-Plugin 'cscope.vim'
+Plugin 'https://github.com/brookhong/cscope.vim.git'
 Plugin 'https://github.com/ervandew/supertab.git'
 Plugin 'https://github.com/Shougo/neocomplete.vim.git'
 Plugin 'echofunc.vim'
@@ -216,27 +219,35 @@ let g:SuperTabDefaultCompletionType = "<c-n>"
 
 " Cscope
 let g:cscope_silent=1
+let g:cscope_preload_path="/usr/include/"
+nnoremap <leader>fa :call CscopeFindInteractive(expand('<cword>'))<CR>
+nnoremap <leader>l :call ToggleLocationList()<CR>
 " s: Find this C symbol
-nnoremap  <leader>fs :call cscope#find('s', expand('<cword>'))<CR>
+nnoremap  <leader>fs :call CscopeFind('s', expand('<cword>'))<CR>
 " g: Find this definition
-nnoremap  <leader>fg :call cscope#find('g', expand('<cword>'))<CR>
+nnoremap  <leader>fg :call CscopeFind('g', expand('<cword>'))<CR>
 " d: Find functions called by this function
-nnoremap  <leader>fd :call cscope#find('d', expand('<cword>'))<CR>
+nnoremap  <leader>fd :call CscopeFind('d', expand('<cword>'))<CR>
 " c: Find functions calling this function
-nnoremap  <leader>fc :call cscope#find('c', expand('<cword>'))<CR>
+nnoremap  <leader>fc :call CscopeFind('c', expand('<cword>'))<CR>
+" t: Find this text string
+nnoremap  <leader>ft :call CscopeFind('t', expand('<cword>'))<CR>
 " f: Find this file
-nnoremap  <leader>ff :call cscope#find('f', expand('<cword>'))<CR>
+nnoremap  <leader>ff :call CscopeFind('f', expand('<cword>'))<CR>
+" i: Find files #including this file
+nnoremap  <leader>fi :call CscopeFind('i', expand('<cword>'))<CR>
 
-function! LoadCscope()
-    let db = findfile("cscope.out", ".;")
-    if (!empty(db))
-        let path = strpart(db, 0, match(db, "/cscope.out$"))
-        set nocscopeverbose " suppress 'duplicate connection' error
-        exe "cs add " . db . " " . path
-        set cscopeverbose
-    endif
-endfunction
-au BufEnter /* call LoadCscope()
+" new version will create database automatically
+"function! LoadCscope()
+"    let db = findfile("cscope.out", ".;")
+"    if (!empty(db))
+"        let path = strpart(db, 0, match(db, "/cscope.out$"))
+"        set nocscopeverbose " suppress 'duplicate connection' error
+"        exe "cs add " . db . " " . path
+"        set cscopeverbose
+"    endif
+"endfunction
+"au BufEnter /* call LoadCscope()
 
 " neocomplete
 " Disable AutoComplPop.
