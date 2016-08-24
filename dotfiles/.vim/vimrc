@@ -39,8 +39,8 @@ let mapleader = ";"
 let g:mapleader = ";"
 
 " 快速重载配置文件
-map <leader>s :source ~/.vim/vimrc<cr> 
-map <leader>e :e! ~/.vim/vimrc<cr>
+"map <leader>s :source ~/.vim/vimrc<cr> 
+"map <leader>e :e! ~/.vim/vimrc<cr>
 
 " 当.vimrc被修改时，重载之
 autocmd! bufwritepost vimrc source ~/.vim/vimrc 
@@ -55,15 +55,7 @@ autocmd BufReadPost *
 autocmd BufEnter * silent! lcd %:p:h
 " set autochdir "
 
-" Centralize backups, swapfiles and undo history
-set backupdir=~/.vim/backups
-set directory=~/.vim/swaps
-if exists("&undodir")
-    set undodir=~/.vim/undo
-endif
 
-" 自动保存 
-autocmd BufLeave,FocusLost * silent! wa
 "}}} 
 
 " => Colors and Fonts "{{{ 
@@ -160,6 +152,11 @@ set cmdheight=1
 set fileencoding=utf-8
 set fileencodings=utf-8,gb18030,latin1
 
+" 启动文件类型插件
+filetype on 
+filetype plugin on 
+filetype indent on 
+
 " 文件类型
 set ffs=unix,dos
 nmap <leader>fd :se ff=dos<cr>
@@ -173,7 +170,7 @@ set nowritebackup
 " => Plugin "{{{
 "
 " https://github.com/VundleVim/Vundle.vim
-filetype off                  " required
+"filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -181,14 +178,20 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-"Plugin 'Valloric/YouCompleteMe'
 Plugin 'https://github.com/scrooloose/nerdtree.git'
 Plugin 'bufexplorer.zip'
 Plugin 'taglist.vim'
-Plugin 'https://github.com/brookhong/cscope.vim.git'
 Plugin 'https://github.com/ervandew/supertab.git'
-Plugin 'https://github.com/Shougo/neocomplete.vim.git'
 Plugin 'echofunc.vim'
+
+" auto update tags
+Plugin 'https://github.com/craigemery/vim-autotag.git'
+
+" c/c++ dev
+Plugin 'https://github.com/brookhong/cscope.vim.git'
+
+"
+Plugin 'https://github.com/Shougo/neocomplete.vim.git'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -202,24 +205,24 @@ filetype plugin indent on    " required
 " Put your non-Plugin stuff after this line
 "
 
-" for taglist
-nmap <F10> :TlistToggle <CR> 
-let Tlist_Use_Right_Window=1
-let Tlist_File_Fold_Auto_Close=1 
-let Tlist_Show_One_File=1
-let Tlist_Exit_OnlyWindow=1
-set tags=./tags;/
+set completeopt=longest,menuone,preview,noselect
 
 " NERDTreeToggle
 nmap <F9> :NERDTreeToggle <CR> 
 
-" SuperTab 
+" for taglist
+nmap <F10> :TlistToggle <CR> 
+let Tlist_Use_Right_Window=1
+let Tlist_File_Fold_Auto_Close=1 
+set tags=./tags;/
+
+" SuperTab
 " scroll down the list
 let g:SuperTabDefaultCompletionType = "<c-n>"
 
 " Cscope
 let g:cscope_silent=1
-let g:cscope_preload_path="/usr/include/"
+"let g:cscope_preload_path="/usr/include/"
 nnoremap <leader>fa :call CscopeFindInteractive(expand('<cword>'))<CR>
 nnoremap <leader>l :call ToggleLocationList()<CR>
 " s: Find this C symbol
@@ -237,6 +240,16 @@ nnoremap  <leader>ff :call CscopeFind('f', expand('<cword>'))<CR>
 " i: Find files #including this file
 nnoremap  <leader>fi :call CscopeFind('i', expand('<cword>'))<CR>
 
+" neocomplete
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 0
+" <TAB>: completion.
+" inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+
 " new version will create database automatically
 "function! LoadCscope()
 "    let db = findfile("cscope.out", ".;")
@@ -249,13 +262,4 @@ nnoremap  <leader>fi :call CscopeFind('i', expand('<cword>'))<CR>
 "endfunction
 "au BufEnter /* call LoadCscope()
 
-" neocomplete
-" Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
-" Use neocomplete.
-let g:neocomplete#enable_at_startup = 1
-" Use smartcase.
-let g:neocomplete#enable_smart_case = 1
-" <TAB>: completion.
-" inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 " }}}
