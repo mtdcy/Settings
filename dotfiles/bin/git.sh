@@ -7,6 +7,7 @@ if [ "$CMD" == "setup" ]; then
     git config --global --replace-all user.email "mtdcy.chen@gmail.com"
 
     git config --global --replace-all core.pager cat
+    git config --global --replace-all push.default simple
     git config --global --replace-all core.editor vim
     git config --global --replace-all merge.tool vimdiff
     git config --global --replace-all merge.conflictstyle diff3
@@ -27,9 +28,6 @@ if [ "$CMD" == "setup" ]; then
     git config --global --replace-all alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cn - %ci)'"
     git config --global --replace-all alias.lga "log --color --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cn - %cr)'"
     git config --global --replace-all alias.list "log --oneline --no-merges --reverse"
-elif [ "$CMD" == "vivo" ]; then
-    git config --replace-all user.name "Chen Fang"
-    git config --replace-all user.email "chenfang@bbktel.com"
 else
     git $@
 fi
