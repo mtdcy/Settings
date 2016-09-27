@@ -6,6 +6,9 @@
 set colorcolumn=80
 set linespace=2
 
+" Don't ask me to save file before switching buffers
+set hidden
+
 " Session 
 set sessionoptions-=curdir
 set sessionoptions+=sesdir
@@ -26,7 +29,7 @@ set incsearch
 set showcmd
 
 " 历史记录行数
-set history=200
+set history=2000
 
 " 当文件在外部被修改时，自动读取
 set autoread 
@@ -43,7 +46,7 @@ let g:mapleader = ";"
 "map <leader>e :e! ~/.vim/vimrc<cr>
 
 " 当.vimrc被修改时，重载之
-autocmd! bufwritepost vimrc source ~/.vim/vimrc 
+"autocmd! bufwritepost vimrc source ~/.vim/vimrc
 
 " 自动跳转到上一次打开的位置
 autocmd BufReadPost *
@@ -52,8 +55,7 @@ autocmd BufReadPost *
 			\ endif 
 
 " 自动进入文件夹
-autocmd BufEnter * silent! lcd %:p:h
-" set autochdir "
+set autochdir
 
 
 "}}} 
@@ -170,8 +172,6 @@ set nowritebackup
 " => Plugin "{{{
 "
 " https://github.com/VundleVim/Vundle.vim
-"filetype off                  " required
-
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -181,8 +181,6 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'https://github.com/scrooloose/nerdtree.git'
 Plugin 'bufexplorer.zip'
 Plugin 'taglist.vim'
-Plugin 'https://github.com/ervandew/supertab.git'
-Plugin 'echofunc.vim'
 
 " auto update tags
 Plugin 'https://github.com/craigemery/vim-autotag.git'
@@ -190,7 +188,7 @@ Plugin 'https://github.com/craigemery/vim-autotag.git'
 " c/c++ dev
 Plugin 'https://github.com/brookhong/cscope.vim.git'
 
-"
+" auto complete
 Plugin 'https://github.com/Shougo/neocomplete.vim.git'
 
 " All of your Plugins must be added before the following line
@@ -205,8 +203,6 @@ filetype plugin indent on    " required
 " Put your non-Plugin stuff after this line
 "
 
-set completeopt=longest,menuone,preview,noselect
-
 " NERDTreeToggle
 nmap <F9> :NERDTreeToggle <CR> 
 
@@ -215,10 +211,6 @@ nmap <F10> :TlistToggle <CR>
 let Tlist_Use_Right_Window=1
 let Tlist_File_Fold_Auto_Close=1 
 set tags=./tags;/
-
-" SuperTab
-" scroll down the list
-let g:SuperTabDefaultCompletionType = "<c-n>"
 
 " Cscope
 let g:cscope_silent=1
@@ -248,7 +240,9 @@ let g:neocomplete#enable_at_startup = 1
 " Use smartcase.
 let g:neocomplete#enable_smart_case = 0
 " <TAB>: completion.
-" inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" Set minimum syntax keyword length. 
+let g:neocomplete#sources#syntax#min_keyword_length = 2
 
 " new version will create database automatically
 "function! LoadCscope()
