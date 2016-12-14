@@ -6,7 +6,7 @@ if [ "$CMD" == "setup" ]; then
     git config --global --replace-all user.name  "mtdcy.chen"
     git config --global --replace-all user.email "mtdcy.chen@gmail.com"
 
-    git config --global --replace-all core.pager cat
+    git config --global --replace-all core.pager "less -F -X"
     git config --global --replace-all push.default simple
     git config --global --replace-all core.editor vim
     git config --global --replace-all merge.tool vimdiff

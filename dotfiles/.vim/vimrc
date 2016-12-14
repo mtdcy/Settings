@@ -36,6 +36,8 @@ set autoread
 
 " 一直启动鼠标
 set mouse=a
+map <ScrollWheelUp> <C-Y>
+map <ScrollWheelDown> <C-E>
 
 " 设置mapleader
 let mapleader = ";"
@@ -46,7 +48,7 @@ let g:mapleader = ";"
 "map <leader>e :e! ~/.vim/vimrc<cr>
 
 " 当.vimrc被修改时，重载之
-"autocmd! bufwritepost vimrc source ~/.vim/vimrc
+autocmd! bufwritepost vimrc source ~/.vim/vimrc
 
 " 自动跳转到上一次打开的位置
 autocmd BufReadPost *
@@ -55,8 +57,8 @@ autocmd BufReadPost *
 			\ endif 
 
 " 自动进入文件夹
-set autochdir
-
+"set autochdir
+autocmd BufEnter * silent! lcd %:p:h
 
 "}}} 
 
@@ -84,6 +86,9 @@ endif
 
 " 折叠相关
 set foldmethod=marker
+"set foldlevel=99
+"autocmd FileType c,cpp,h,hpp setlocal foldmethod=syntax
+"autocmd FileType python setlocal foldmethod=indent
 "}}}
 
 " => other UI options"{{{
@@ -160,6 +165,7 @@ filetype plugin on
 filetype indent on 
 
 " 文件类型
+set fileformat=unix
 set ffs=unix,dos
 nmap <leader>fd :se ff=dos<cr>
 nmap <leader>fu :se ff=unix<cr>
@@ -190,6 +196,13 @@ Plugin 'https://github.com/brookhong/cscope.vim.git'
 
 " auto complete
 Plugin 'https://github.com/Shougo/neocomplete.vim.git'
+
+" indent python
+Plugin 'hynek/vim-python-pep8-indent'
+
+" Plugin 'Valloric/YouCompleteMe'
+
+Plugin 'Konfekt/FastFold'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -238,11 +251,19 @@ let g:acp_enableAtStartup = 0
 " Use neocomplete.
 let g:neocomplete#enable_at_startup = 1
 " Use smartcase.
-let g:neocomplete#enable_smart_case = 0
+let g:neocomplete#enable_smart_case = 1
 " <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" Set minimum syntax keyword length. 
-let g:neocomplete#sources#syntax#min_keyword_length = 2
+inoremap <expr><TAB>    pumvisible() ? "\<C-n>" : "\<TAB>"
+"inoremap <expr><TAB> pumvisible() ? neocomplete#complete_common_string() : "\<TAB>"
+
+" Set minimum match keyword length. 
+let g:neocomplete#auto_completion_start_length = 1
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+" Plugin key-mappings.
+inoremap <expr><C-g>    neocomplete#undo_completion()
+inoremap <expr><C-l>    neocomplete#complete_common_string()
 
 " new version will create database automatically
 "function! LoadCscope()
@@ -255,5 +276,7 @@ let g:neocomplete#sources#syntax#min_keyword_length = 2
 "    endif
 "endfunction
 "au BufEnter /* call LoadCscope()
+
+" FastFold
 
 " }}}

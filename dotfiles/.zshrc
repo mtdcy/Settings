@@ -112,7 +112,7 @@ alias vdir='vdir --color=auto'
 #alias fgrep='fgrep --color=auto'
 #alias egrep='egrep --color=auto'
 alias du='du -h --max-depth=1'
-alias vim='mvim -v'
+#alias vim='mvim -v'
 
 # extract#{{{
 extract () {
