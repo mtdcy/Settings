@@ -89,8 +89,8 @@ export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
 # set the number of open files to be 1024
 ulimit -S -n 1024
 
-export NDK=/work/android-ndk-r10e
-export SDK=/work/android-sdk-macosx
+export NDK=/$HOME/android/android-ndk-r13b
+export SDK=/$HOME/android/android-sdk-macosx
 
 export PATH=$HOME/bin:$NDK:$SDK/platform-tools:$SDK/tools:$PATH
 
@@ -114,6 +114,8 @@ alias vdir='vdir --color=auto'
 alias du='du -h --max-depth=1'
 #alias vim='mvim -v'
 
+export GOPATH=/$HOME/go
+export PATH="/usr/local/go/bin:$PATH"
 # extract#{{{
 extract () {
     if [ -f $1 ]
