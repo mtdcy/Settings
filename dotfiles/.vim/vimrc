@@ -63,8 +63,11 @@ set hidden
 set cursorline
 set nocursorcolumn
 
+" 语法高亮
+syntax on
+
 " 使用非兼容模式
-set nocompatible  
+set nocompatible    " need by vundle 
 
 " 有关搜索的选项
 set hls
@@ -90,6 +93,13 @@ map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
+" For completion. if pumvisible, then next item; else tab
+inoremap <expr><TAB>    pumvisible() ? "\<C-n>" : "\<TAB>"
+
+" set completopt and preview window on the bottom
+set completeopt=menuone,longest,preview
+set splitbelow
+
 "}}}
 
 " => Files "{{{
@@ -102,7 +112,6 @@ map <C-l> <C-W>l
 " ai    - autoindent 
 
 " For all
-filetype plugin indent on   	" need by plugins 
 set noautochdir 		" may cause problem to some plugins
 
 " For c/c++ 
@@ -110,6 +119,8 @@ au FileType c,cpp setlocal ts=4 sts=4 sw=4 tw=79 et ff=unix
 
 " For python 
 au FileType python setlocal ts=4 sts=4 sw=4 tw=79 et ff=unix
+
+au FileType zsh,vim setlocal ts=4 sts=4 sw=4 tw=79 et ff=unix
 
 "}}}
 
@@ -122,6 +133,8 @@ au FileType python setlocal ts=4 sts=4 sw=4 tw=79 et ff=unix
 " :PluginSearch foo - searches for foo; append `!` to refresh local cache
 " :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
 set rtp+=~/.vim/bundle/Vundle.vim
+set nocompatible    " be vim, required
+filetype off        " required 
 call vundle#begin()
 
 " let Vundle manage Vundle, required
@@ -150,7 +163,8 @@ Plugin 'davidhalter/jedi-vim'
 
 
 " All of your Plugins must be added before the following line
-call vundle#end()            " required
+call vundle#end()           " required
+filetype plugin indent on   " required
 
 " Put your non-Plugin stuff after this line
 " NERDTreeToggle
@@ -192,15 +206,14 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
 
-" neocomplete
+" neocompletion
+let g:neocomplete#enable_at_startup = 1
+" neocompletion settings
 " Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
-" Use neocomplete.
-let g:neocomplete#enable_at_startup = 1
 " Use smartcase.
 let g:neocomplete#enable_smart_case = 1
 " <TAB>: completion.
-inoremap <expr><TAB>    pumvisible() ? "\<C-n>" : "\<TAB>"
 "inoremap <expr><TAB> pumvisible() ? neocomplete#complete_common_string() : "\<TAB>"
 " Set minimum match keyword length. 
 let g:neocomplete#auto_completion_start_length = 1
@@ -211,8 +224,12 @@ let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 inoremap <expr><C-g>    neocomplete#undo_completion()
 inoremap <expr><C-l>    neocomplete#complete_common_string()
 
-
-" jedi-vim 
-
+" jedi completion
+let g:jedi#auto_initialization = 1
+" jedi settings
+let g:jedi#completions_command = '<C-n>'
+let g:jedi#show_call_signatures = "2"
+" disable neocomplete for python
+au FileType python NeoCompleteLock
 
 " }}}
