@@ -24,5 +24,5 @@ done
 if [ $gentags -ne 0 ]; then 
     info "gen tags"
     cscope -bkq -i files 
-    ctags -R --fields=+ailS -L files
+    ctags -R --fields=+ailS --c-kinds=+p --c++-kinds=+p --sort=no --extra=+q -L files
 fi
