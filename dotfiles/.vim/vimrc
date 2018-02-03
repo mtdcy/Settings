@@ -113,6 +113,8 @@ nnoremap <leader>ft :cs find t <C-R>=expand("<cword>")<CR><CR>      " t: find th
 nnoremap <leader>ff :cs find f <C-R>=expand("<cfile>")<CR><CR>      " f: find this file
 nnoremap <leader>fi :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>    " i: find files #include this file
 
+" FIXME: use vim's filetype detection
+let g:tags_supported_filetype = '\.\(c\|cpp\|cc\|h\|\java\|py\)$'
 " auto load tags and cscope db
 function! LoadTags()
     let db = findfile("cscope.out", ".;")
@@ -133,21 +135,40 @@ au BufEnter * call LoadTags()
 " auto update tags and cscope db if loaded
 function! UpdateTags() 
     let file = expand("%:p")
-    let db = findfile("cscope.out", ".;")
-    if (!empty(db))
-        let path = strpart(db, 0, match(db, "/cscope.out$"))
-        exe "silent !cscope -bkq -P " . path . " -f " . db . " " . file 
-        exe "cs reset"
-    endif
+    if match(file, tags_supported_filetype) >= 0
+        let db = findfile("cscope.out", ".;")
+        if (!empty(db))
+            let path = strpart(db, 0, match(db, "/cscope.out$"))
+            exe "silent !cscope -bkq -P " . path . " -f " . db . " " . file 
+            exe "cs reset"
+        endif
 
-    let tagfile = findfile("tags", ".;")
-    let ctags_options = "--fields=+ailS --c-kinds=+p --c++-kinds=+p --sort=no --extra=+q"
-    if (!empty(tagfile)) 
-        exe "silent !ctags " . ctags_options . " -f " . tagfile . " " . file
-        " no need to reload
+        let tagfile = findfile("tags", ".;")
+        let ctags_options = "--fields=+ailS --c-kinds=+p --c++-kinds=+p --sort=no --extra=+q"
+        if (!empty(tagfile)) 
+            exe "silent !ctags " . ctags_options . " -f " . tagfile . " " . file
+            " no need to reload
+        endif
     endif
 endfunction
+" update tags on :w
 au BufWritePost * call UpdateTags()
+
+" cmd for create tags and cscope db
+function! CreateTags() 
+    let loc = input("project root: ", expand("%:p:h"))
+    let files = systemlist("find " . loc . " -type f")
+    let cscope_files = loc . "/cscope.files"
+    " create if not exists; or empty target
+    call system("echo -n \"\" > " . cscope_files)
+    let supported_files = []
+    for file in files
+        if match(file, g:tags_supported_filetype) >= 0
+            let supported_files += [file]
+        endif
+    endfor
+    call writefile(supported_files, cscope_files, "a")
+endfunction
 
 "}}}
 
