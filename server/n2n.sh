@@ -1,5 +1,7 @@
 #!/bin/sh 
 
+apt install libssl-dev 
+
 test -d n2n || git clone https://github.com/ntop/n2n.git
 
 cd n2n && git checkout 2.4-stable
