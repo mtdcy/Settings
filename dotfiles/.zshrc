@@ -1,6 +1,13 @@
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
+export PATH="/usr/local/bin:$PATH"
+export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
+export PATH="$(brew --prefix gnu-sed)/libexec/gnubin:$PATH"
+export PATH=$HOME/bin:$NDK:$SDK/platform-tools:$SDK/tools:$PATH
+
+[ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
+
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
@@ -83,16 +90,11 @@ fi
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-export PATH="/usr/local/bin:$PATH"
-export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
-
 # set the number of open files to be 1024
 ulimit -S -n 1024
 
 export NDK=/$HOME/android/android-ndk-r13b
 export SDK=/$HOME/android/android-sdk-macosx
-
-export PATH=$HOME/bin:$NDK:$SDK/platform-tools:$SDK/tools:$PATH
 
 #export JAVA_HOME=/work/jdk1.6.0_45
 #export PATH=$JAVA_HOME/bin:$PATH 
