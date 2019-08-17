@@ -1,7 +1,7 @@
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
-export PATH="/usr/local/bin:$PATH"
+export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
 export PATH="$(brew --prefix gnu-sed)/libexec/gnubin:$PATH"
 export PATH=$HOME/bin:$NDK:$SDK/platform-tools:$SDK/tools:$PATH
@@ -142,3 +142,5 @@ extract () {
     fi
 }
 #}}}
+
+export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.aliyun.com/homebrew/homebrew-bottles
