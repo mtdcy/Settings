@@ -1,5 +1,8 @@
 #!/bin/sh 
 
+
+apt install openssh-client
+
 cat > /etc/systemd/system/ssh-socks.service <<- EOF
 [Unit]
 Description=ssh socks proxy
@@ -12,7 +15,7 @@ User=chen
 Group=chen
 ExecStartPre=
 ExecStart=/usr/bin/ssh -CN -D *:7070 chen@mtdcy.com -p 6015
-Restart=on-abnormal
+Restart=always
 RestartSec=3
 
 [Install]

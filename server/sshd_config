@@ -1,0 +1,22 @@
+Protocol 2
+LogLevel INFO
+StrictModes yes
+PasswordAuthentication yes
+PubkeyAuthentication yes
+AcceptEnv LANG LC_*
+UsePAM yes
+UseDNS no
+AddressFamily inet
+SyslogFacility AUTHPRIV
+
+X11Forwarding yes
+X11DisplayOffset 10
+
+PrintMotd yes
+PrintLastLog yes
+
+TCPKeepAlive yes
+ClientAliveInterval 15
+ClientAliveCountMax 4 	# 60s 
+
+Subsystem sftp /usr/lib/openssh/sftp-server
