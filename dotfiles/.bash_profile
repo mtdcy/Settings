@@ -141,9 +141,9 @@ export SVN_MERGE=meld
 
 #export GREP_OPTIONS='-R --exclude-dir=.svn --exclude-dir=.git --exclude=*~ --binary-files=without-match --color=auto -H -n'
 
-export HISTSIZE=5000
-export HISTTIMEFORMAT='%F %T '
-export HISTCONTROL=erasedups:ignorespace
+#export HISTSIZE=5000
+#export HISTTIMEFORMAT='%F %T '
+export HISTCONTROL=erasedups:ignorespace:ignoredups
 
 export EDITOR=vim
 
