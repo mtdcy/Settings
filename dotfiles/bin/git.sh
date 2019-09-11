@@ -14,7 +14,7 @@ if [ "$CMD" == "setup" ]; then
     git config --global --replace-all mergetool.prompt false
     git config --global --replace-all diff.tool vimdiff
 
-    git config --global --replace-all core.autocrlf input #
+    git config --global --replace-all core.autocrlf false
     git config --global --replace-all core.mergeoptions --no-edit
     git config --global --replace-all core.excludesfile '*.swp'
     echo "setting alias"
