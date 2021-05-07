@@ -19,10 +19,10 @@ brew tap Homebrew/dupes
 else
 info "Update brew..."
 # Make sure we’re using the latest Homebrew.
-brew update
+#brew update
 
 # Upgrade any already-installed formulae.
-brew upgrade --all
+#brew upgrade 
 fi
 
 # Install GNU core utilities (those that come with OS X are outdated).
@@ -34,13 +34,13 @@ brew install moreutils
 # Install GNU `find`, `locate`, `updatedb`, and `xargs`, `g`-prefixed.
 brew install findutils
 # Install GNU `sed`, overwriting the built-in `sed`.
-brew install gnu-sed --with-default-names
+brew install gnu-sed 
 
 # Install `wget` with IRI support.
-brew install wget --with-iri
+brew install wget 
 
 # Install MacVim 
-brew install MacVim --with-override-system-vim --with-lua --with-python --with-cscope
+brew install MacVim 
 
 # Install binutils 
 brew install binutils
@@ -49,13 +49,13 @@ brew install git
 brew install lua
 brew install p7zip
 brew install tree
-brew install grep --with-default-names 
+brew install grep 
 brew install make   # Android need gmake
 brew install gnupg
 
 # Develop libraries 
-brew install sdl
-brew install zlib
+#brew install sdl
+#brew install zlib
 
 # Remove outdated versions from the cellar.
 brew cleanup

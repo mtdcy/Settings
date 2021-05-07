@@ -28,6 +28,11 @@ if [ "$CMD" == "setup" ]; then
     git config --global --replace-all alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cn - %ci)'"
     git config --global --replace-all alias.lga "log --color --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cn - %cr)'"
     git config --global --replace-all alias.list "log --oneline --no-merges --reverse"
+elif [ "$CMD" == "proxy" ]; then
+    git config --global --unset http.proxy
+    git config --global --unset https.proxy
+    git config --local --add http.proxy http://127.0.0.1:7070
+    git config --local --add https.proxy http://127.0.0.1:7070
 else
     git $@
 fi
